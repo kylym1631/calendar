@@ -1,0 +1,55 @@
+$monthName = date('F');
+//$monthName = 'September';
+ $year = date('Y');
+// $year = '2022';
+$month = date('m');
+//$month = '09';
+ $currDay = date('d');
+// $currDay = '01';
+$maxDaysInMonth =  cal_days_in_month(CAL_GREGORIAN,$month,$year);
+$day_number = date('N',strtotime($year . '-' . $month . '-' .$currDay)); 
+$currWeekDay = date('l',strtotime($year . '-' . $month . '-' .$currDay ));
+
+echo '<h2>' . $monthName . '</h2>';
+echo "<br>";
+
+
+echo '<table border = 2>';
+echo '<tr>';
+echo '<tr>';
+    for ($week = 1;$week<=7;$week++){
+        echo  '<th>' . date('l', strtotime("Sunday + $week Days")) . '</th>';
+    }
+echo '</tr>';
+for ($day = 1;$day <= $maxDaysInMonth; $day++)
+    {
+        $blankOrDay = '';
+        if ($day <=7){
+            if ($day_number<=$day){
+                $blankOrDay = $day;
+                for ($day = 1;$day <= $maxDaysInMonth; $day++){
+                    echo '<td>'. $day. '</td>';
+                    if ($day <=9){
+                        $currDay = '0'.$day;
+                    }else{
+                        $currDay = $day;
+                    }
+                    if ("Sunday" == date('l',strtotime($year . '-' . $month . '-' .$currDay ))){
+                        echo '</tr>';
+                    }
+                }
+
+
+            }else{
+                echo '<td style="padding: 9px">'. $blankOrDay . '</td>';
+            }
+
+        }
+
+    }
+
+
+echo '</table>';
+
+
+echo "<br>";
